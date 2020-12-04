@@ -37,6 +37,10 @@ public class MyLinkedList<T> implements Iterable<T> {
             return current.getValue();
         }
 
+        @Override
+        public void remove() {
+            
+        }
     }
 
     private class Node {
