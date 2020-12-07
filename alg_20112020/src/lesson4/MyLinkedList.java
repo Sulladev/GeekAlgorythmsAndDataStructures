@@ -1,6 +1,8 @@
 package lesson4;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 public class MyLinkedList<T> implements Iterable<T> {
@@ -14,9 +16,61 @@ public class MyLinkedList<T> implements Iterable<T> {
     }
 
 
-//    public ListIterator<T> listIterator() {
-//        return null;
-//    }
+    public ListIterator<T> listIterator() {
+        return new ListIter();
+    }
+
+
+    private class ListIter implements ListIterator <T> {
+
+        Node current = new Node(null, first);
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+
+        public T next() {
+            current = current.getNext();
+            return current.getValue();
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return current.getPrev() != first;
+        }
+
+        @Override
+        public T previous() {
+            current = current.getPrev();
+            return current.getValue();
+        }
+
+        @Override
+        public int nextIndex() {
+           return 0;
+        }
+
+        @Override
+        public int previousIndex() {
+            return 0;
+        }
+
+
+        public void remove(){
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void set(T t) {
+            current.setValue(t);
+        }
+
+        @Override
+        public void add(T t) {
+
+        }
+    }
 
     public MyLinkedList() {
         first = null;
@@ -37,6 +91,12 @@ public class MyLinkedList<T> implements Iterable<T> {
             return current.getValue();
         }
 
+        @Override
+        public void remove() {
+            current.getPrev().setNext(current.getNext());
+            current.getNext().setPrev(current.getPrev());
+            size--;
+        }
     }
 
     private class Node {
