@@ -83,12 +83,25 @@ public class Main {
 
     public static int expo(int a, int n) {
         if (n == 0) {
-            return a;
+            return 1;
         } else {
             a *= expo(a, n - 1);
         }
 
         return a;
+    }
+
+    private static double exponentiation(double value, int power) {
+        if (value == 0 && power <= 0) {
+            throw new ArithmeticException("Неопределённость");
+        }
+        if (power == 0) {
+            return 1;
+        } else if (power < 0) {
+            return 1 / value * exponentiation(value, ++power);
+        } else {
+            return value * exponentiation(value, --power);
+        }
     }
 
 }
