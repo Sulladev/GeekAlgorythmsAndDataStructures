@@ -104,7 +104,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
 
     public void deleteMin() {
         if (isEmpty()) {
-            throw new NoSuchElementException("map empty");
+            throw new NoSuchElementException("Map is empty");
         }
         root = deleteMin(root);
     }
@@ -114,6 +114,22 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
             return node.right;
         }
         node.left = deleteMin(node.left);
+        node.size = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+
+    public void deleteMax() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Map is empty");
+        }
+        root = deleteMax(root);
+    }
+
+    private Node deleteMax (Node node) {
+        if (node.right == null) {
+            return node.left;
+        }
+        node.right = deleteMax(node.right);
         node.size = size(node.left) + size(node.right) + 1;
         return node;
     }
