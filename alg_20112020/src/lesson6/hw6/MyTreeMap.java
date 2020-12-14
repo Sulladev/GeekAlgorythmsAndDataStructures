@@ -41,8 +41,11 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         if (node == null) {
             return 0;
         }
+        if (node.left == null && node.right == null) {
+            return 0;
+        }
 
-        return node.high;
+        return Math.max(high(node.left), high(node.right)) + 1;
     }
 
     public boolean isEmpty() {
@@ -185,29 +188,19 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
     }
 
 
-    public int isBalanced() {
+    public boolean isBalanced() {
         return isBalanced(root);
     }
 
-    private int isBalanced(Node node) {
-        if (node == null) {
-            return 0;
+    private boolean isBalanced(Node node) {
+        if(node == null){
+            return true;
         }
-        int nodeLeftHeight = isBalanced(node.left);
-        if (nodeLeftHeight == -1) {
-            return -1;
+        if (node.left == null && node.right == null) {
+            return true;
         }
-
-        int nodeRightHeight = isBalanced(node.right);
-        if (nodeRightHeight == -1) {
-            return -1;
-        }
-
-        if (Math.abs(nodeLeftHeight - nodeRightHeight) > 1) {
-            return -1;
-        }
-
-        return (Math.max(nodeLeftHeight, nodeRightHeight) + 1);
+        return Math.abs(high(node.left)- high(node.right))<=1
+                && isBalanced(node.left) && isBalanced(node.right);
 
     }
 
