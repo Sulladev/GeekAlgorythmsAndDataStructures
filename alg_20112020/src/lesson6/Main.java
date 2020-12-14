@@ -13,17 +13,21 @@ public class Main {
         map.put(4,"four");
         map.put(2,"two two");
 
-//        System.out.println(map);
-//        System.out.println(map.get(2));
+        System.out.println(map);
+        System.out.println(map.size());
 
 //        map.deleteMin();
-        System.out.println(map);
-        System.out.println(map.size());
+//        System.out.println(map);
+//        System.out.println(map.size());
+//
+//        map.delete(5);
+//        System.out.println(map);
+//        System.out.println(map.size());
 
-        map.delete(5);
-        System.out.println(map);
-        System.out.println(map.size());
-
+//        map.deleteMax();
+//        System.out.println(map);
+//        map.deleteMax();
+//        System.out.println(map);
 
     }
 }

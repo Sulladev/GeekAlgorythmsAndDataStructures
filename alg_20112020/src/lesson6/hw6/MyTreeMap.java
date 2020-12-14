@@ -1,8 +1,9 @@
-package lesson6;
+package lesson6.hw6;
 
 import java.util.NoSuchElementException;
 
 public class MyTreeMap<Key extends Comparable<Key>, Value> {
+
     private Node root;
 
     private class Node {
@@ -11,11 +12,13 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         Node left;
         Node right;
         int size;
+        int high;
 
         public Node(Key key, Value value) {
             this.key = key;
             this.value = value;
             size = 1;
+            high = 0;
         }
     }
 
@@ -28,6 +31,18 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
             return 0;
         }
         return node.size;
+    }
+
+    public int high() {
+        return high(root);
+    }
+
+    private int high(Node node) {
+        if (node == null) {
+            return 0;
+        }
+
+        return node.high;
     }
 
     public boolean isEmpty() {
@@ -85,6 +100,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
             node.right = put(node.right, key, value);
         }
         node.size = size(node.left) + size(node.right) + 1;
+        node.high++;
         return node;
     }
 
@@ -115,6 +131,7 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         }
         node.left = deleteMin(node.left);
         node.size = size(node.left) + size(node.right) + 1;
+        node.high--;
         return node;
     }
 
@@ -125,12 +142,13 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         root = deleteMax(root);
     }
 
-    private Node deleteMax (Node node) {
+    private Node deleteMax(Node node) {
         if (node.right == null) {
             return node.left;
         }
         node.right = deleteMax(node.right);
         node.size = size(node.left) + size(node.right) + 1;
+        node.high--;
         return node;
     }
 
@@ -162,7 +180,35 @@ public class MyTreeMap<Key extends Comparable<Key>, Value> {
         }
 
         node.size = size(node.left) + size(node.right) + 1;
+        node.high--;
         return node;
+    }
+
+
+    public int isBalanced() {
+        return isBalanced(root);
+    }
+
+    private int isBalanced(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int nodeLeftHeight = isBalanced(node.left);
+        if (nodeLeftHeight == -1) {
+            return -1;
+        }
+
+        int nodeRightHeight = isBalanced(node.right);
+        if (nodeRightHeight == -1) {
+            return -1;
+        }
+
+        if (Math.abs(nodeLeftHeight - nodeRightHeight) > 1) {
+            return -1;
+        }
+
+        return (Math.max(nodeLeftHeight, nodeRightHeight) + 1);
+
     }
 
 
