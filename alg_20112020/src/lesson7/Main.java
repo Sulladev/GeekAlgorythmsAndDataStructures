@@ -8,6 +8,13 @@ public class Main {
         graph.addEdge(1,4);
         graph.addEdge(1,0);
 
+        graph.addEdge(2,3);
+        graph.addEdge(2,4);
+        graph.addEdge(4,3);
+        graph.addEdge(3,2);
+        graph.addEdge(1,3);
+        graph.addEdge(3,4);
+
 //        System.out.println(graph.getAdjList(1));
 
 //        DepthFirstPaths dfp = new DepthFirstPaths(graph, 2);
@@ -15,7 +22,7 @@ public class Main {
 //        System.out.println(dfp.pathTo(0));
 
 
-        BreadthFirstPaths bfp = new BreadthFirstPaths(graph, 2);
+        BreadthFirstPaths bfp = new BreadthFirstPaths(graph, 3);
         System.out.println(bfp.hasPathTo(0));
         System.out.println(bfp.pathTo(0));
 
